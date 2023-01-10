@@ -28,12 +28,154 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.btnNewGame = new System.Windows.Forms.Button();
+            this.btnField1 = new System.Windows.Forms.Button();
+            this.btnField2 = new System.Windows.Forms.Button();
+            this.btnField3 = new System.Windows.Forms.Button();
+            this.btnField4 = new System.Windows.Forms.Button();
+            this.btnField5 = new System.Windows.Forms.Button();
+            this.btnField6 = new System.Windows.Forms.Button();
+            this.btnField7 = new System.Windows.Forms.Button();
+            this.btnField8 = new System.Windows.Forms.Button();
+            this.btnField9 = new System.Windows.Forms.Button();
+            this.lbOutput = new System.Windows.Forms.Label();
+            this.SuspendLayout();
+            // 
+            // btnNewGame
+            // 
+            this.btnNewGame.Location = new System.Drawing.Point(105, 50);
+            this.btnNewGame.Name = "btnNewGame";
+            this.btnNewGame.Size = new System.Drawing.Size(150, 46);
+            this.btnNewGame.TabIndex = 0;
+            this.btnNewGame.Tag = "btnNewGame";
+            this.btnNewGame.Text = "New Game";
+            this.btnNewGame.UseVisualStyleBackColor = true;
+            // 
+            // btnField1
+            // 
+            this.btnField1.Location = new System.Drawing.Point(105, 138);
+            this.btnField1.Name = "btnField1";
+            this.btnField1.Size = new System.Drawing.Size(250, 250);
+            this.btnField1.TabIndex = 1;
+            this.btnField1.Tag = "btnField1";
+            this.btnField1.UseVisualStyleBackColor = true;
+            // 
+            // btnField2
+            // 
+            this.btnField2.Location = new System.Drawing.Point(361, 138);
+            this.btnField2.Name = "btnField2";
+            this.btnField2.Size = new System.Drawing.Size(250, 250);
+            this.btnField2.TabIndex = 2;
+            this.btnField2.Tag = "btnField2";
+            this.btnField2.UseVisualStyleBackColor = true;
+            // 
+            // btnField3
+            // 
+            this.btnField3.Location = new System.Drawing.Point(617, 138);
+            this.btnField3.Name = "btnField3";
+            this.btnField3.Size = new System.Drawing.Size(250, 250);
+            this.btnField3.TabIndex = 3;
+            this.btnField3.Tag = "btnField3";
+            this.btnField3.UseVisualStyleBackColor = true;
+            // 
+            // btnField4
+            // 
+            this.btnField4.Location = new System.Drawing.Point(105, 394);
+            this.btnField4.Name = "btnField4";
+            this.btnField4.Size = new System.Drawing.Size(250, 250);
+            this.btnField4.TabIndex = 4;
+            this.btnField4.Tag = "btnField4";
+            this.btnField4.UseVisualStyleBackColor = true;
+            // 
+            // btnField5
+            // 
+            this.btnField5.Location = new System.Drawing.Point(361, 394);
+            this.btnField5.Name = "btnField5";
+            this.btnField5.Size = new System.Drawing.Size(250, 250);
+            this.btnField5.TabIndex = 5;
+            this.btnField5.Tag = "btnField5";
+            this.btnField5.UseVisualStyleBackColor = true;
+            // 
+            // btnField6
+            // 
+            this.btnField6.Location = new System.Drawing.Point(617, 394);
+            this.btnField6.Name = "btnField6";
+            this.btnField6.Size = new System.Drawing.Size(250, 250);
+            this.btnField6.TabIndex = 6;
+            this.btnField6.Tag = "btnField6";
+            this.btnField6.UseVisualStyleBackColor = true;
+            // 
+            // btnField7
+            // 
+            this.btnField7.Location = new System.Drawing.Point(105, 650);
+            this.btnField7.Name = "btnField7";
+            this.btnField7.Size = new System.Drawing.Size(250, 250);
+            this.btnField7.TabIndex = 7;
+            this.btnField7.Tag = "btnField7";
+            this.btnField7.UseVisualStyleBackColor = true;
+            // 
+            // btnField8
+            // 
+            this.btnField8.Location = new System.Drawing.Point(361, 650);
+            this.btnField8.Name = "btnField8";
+            this.btnField8.Size = new System.Drawing.Size(250, 250);
+            this.btnField8.TabIndex = 8;
+            this.btnField8.Tag = "btnField8";
+            this.btnField8.UseVisualStyleBackColor = true;
+            // 
+            // btnField9
+            // 
+            this.btnField9.Location = new System.Drawing.Point(617, 650);
+            this.btnField9.Name = "btnField9";
+            this.btnField9.Size = new System.Drawing.Size(250, 250);
+            this.btnField9.TabIndex = 9;
+            this.btnField9.Tag = "btnField9";
+            this.btnField9.UseVisualStyleBackColor = true;
+            // 
+            // lbOutput
+            // 
+            this.lbOutput.AutoSize = true;
+            this.lbOutput.Location = new System.Drawing.Point(617, 57);
+            this.lbOutput.Name = "lbOutput";
+            this.lbOutput.Size = new System.Drawing.Size(78, 32);
+            this.lbOutput.TabIndex = 10;
+            this.lbOutput.Text = "label1";
+            // 
+            // Form1
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 32F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(998, 953);
+            this.Controls.Add(this.lbOutput);
+            this.Controls.Add(this.btnField9);
+            this.Controls.Add(this.btnField8);
+            this.Controls.Add(this.btnField7);
+            this.Controls.Add(this.btnField6);
+            this.Controls.Add(this.btnField5);
+            this.Controls.Add(this.btnField4);
+            this.Controls.Add(this.btnField3);
+            this.Controls.Add(this.btnField2);
+            this.Controls.Add(this.btnField1);
+            this.Controls.Add(this.btnNewGame);
+            this.Name = "Form1";
             this.Text = "Form1";
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
 
         #endregion
+
+        private System.Windows.Forms.Button btnNewGame;
+        private System.Windows.Forms.Button btnField1;
+        private System.Windows.Forms.Button btnField2;
+        private System.Windows.Forms.Button btnField3;
+        private System.Windows.Forms.Button btnField4;
+        private System.Windows.Forms.Button btnField5;
+        private System.Windows.Forms.Button btnField6;
+        private System.Windows.Forms.Button btnField7;
+        private System.Windows.Forms.Button btnField8;
+        private System.Windows.Forms.Button btnField9;
+        private System.Windows.Forms.Label lbOutput;
     }
 }

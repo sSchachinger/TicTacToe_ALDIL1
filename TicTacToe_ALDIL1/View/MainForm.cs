@@ -10,12 +10,12 @@ using System.Windows.Forms;
 
 namespace TicTacToe_ALDIL1
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
 
         public event EventHandler<int> btnClicked;
 
-        public Form1()
+        public MainForm()
         {
             InitializeComponent();
         }

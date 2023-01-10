@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using TicTacToe_ALDIL1.View;
 using TicTacToe_ALDIL1.Controller;
 using TicTacToe_ALDIL1.Model;
 
@@ -20,11 +19,16 @@ namespace TicTacToe_ALDIL1
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
 
-            GameController game = new GameController();
-            ViewController view = new ViewController();
-            MainController mainController= new MainController(game,view);
+            // View
+            MainForm myMainForm = new MainForm();
+            // Model
+
+            // Controller
+            GameController myController = new GameController(myMainForm);
+
+            
+            
         }
     }
 }

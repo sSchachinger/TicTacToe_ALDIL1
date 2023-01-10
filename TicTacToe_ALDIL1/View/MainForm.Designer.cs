@@ -50,6 +50,7 @@
             this.btnNewGame.Tag = "btnNewGame";
             this.btnNewGame.Text = "New Game";
             this.btnNewGame.UseVisualStyleBackColor = true;
+            this.btnNewGame.Click += new System.EventHandler(this.BtnClicked);
             // 
             // btnField1
             // 
@@ -59,6 +60,7 @@
             this.btnField1.TabIndex = 1;
             this.btnField1.Tag = "btnField1";
             this.btnField1.UseVisualStyleBackColor = true;
+            this.btnField1.Click += new System.EventHandler(this.BtnClicked);
             // 
             // btnField2
             // 
@@ -68,6 +70,7 @@
             this.btnField2.TabIndex = 2;
             this.btnField2.Tag = "btnField2";
             this.btnField2.UseVisualStyleBackColor = true;
+            this.btnField2.Click += new System.EventHandler(this.BtnClicked);
             // 
             // btnField3
             // 
@@ -77,6 +80,7 @@
             this.btnField3.TabIndex = 3;
             this.btnField3.Tag = "btnField3";
             this.btnField3.UseVisualStyleBackColor = true;
+            this.btnField3.Click += new System.EventHandler(this.BtnClicked);
             // 
             // btnField4
             // 
@@ -86,6 +90,7 @@
             this.btnField4.TabIndex = 4;
             this.btnField4.Tag = "btnField4";
             this.btnField4.UseVisualStyleBackColor = true;
+            this.btnField4.Click += new System.EventHandler(this.BtnClicked);
             // 
             // btnField5
             // 
@@ -95,6 +100,7 @@
             this.btnField5.TabIndex = 5;
             this.btnField5.Tag = "btnField5";
             this.btnField5.UseVisualStyleBackColor = true;
+            this.btnField5.Click += new System.EventHandler(this.BtnClicked);
             // 
             // btnField6
             // 
@@ -104,6 +110,7 @@
             this.btnField6.TabIndex = 6;
             this.btnField6.Tag = "btnField6";
             this.btnField6.UseVisualStyleBackColor = true;
+            this.btnField6.Click += new System.EventHandler(this.BtnClicked);
             // 
             // btnField7
             // 
@@ -113,6 +120,7 @@
             this.btnField7.TabIndex = 7;
             this.btnField7.Tag = "btnField7";
             this.btnField7.UseVisualStyleBackColor = true;
+            this.btnField7.Click += new System.EventHandler(this.BtnClicked);
             // 
             // btnField8
             // 
@@ -122,6 +130,7 @@
             this.btnField8.TabIndex = 8;
             this.btnField8.Tag = "btnField8";
             this.btnField8.UseVisualStyleBackColor = true;
+            this.btnField8.Click += new System.EventHandler(this.BtnClicked);
             // 
             // btnField9
             // 
@@ -131,6 +140,7 @@
             this.btnField9.TabIndex = 9;
             this.btnField9.Tag = "btnField9";
             this.btnField9.UseVisualStyleBackColor = true;
+            this.btnField9.Click += new System.EventHandler(this.BtnClicked);
             // 
             // lbOutput
             // 
@@ -141,7 +151,7 @@
             this.lbOutput.TabIndex = 10;
             this.lbOutput.Text = "label1";
             // 
-            // Form1
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 32F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -157,7 +167,7 @@
             this.Controls.Add(this.btnField2);
             this.Controls.Add(this.btnField1);
             this.Controls.Add(this.btnNewGame);
-            this.Name = "Form1";
+            this.Name = "MainForm";
             this.Text = "Form1";
             this.ResumeLayout(false);
             this.PerformLayout();

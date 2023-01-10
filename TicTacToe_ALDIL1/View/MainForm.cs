@@ -20,7 +20,7 @@ namespace TicTacToe_ALDIL1
             InitializeComponent();
         }
 
-        private void btnActionClicked(object sender, EventArgs e)
+        private void BtnClicked(object sender, EventArgs e)
         {
             if (sender is Button)
             {

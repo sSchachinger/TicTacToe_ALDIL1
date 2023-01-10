@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TicTacToe_ALDIL1.Controller
 {
-    internal class GameController
+    internal class GameController  : IGameController
     {
     }
 }

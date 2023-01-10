@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TicTacToe_ALDIL1.View
 {
-    internal class ViewController
+    internal class ViewController : IView
     {
     }
 }

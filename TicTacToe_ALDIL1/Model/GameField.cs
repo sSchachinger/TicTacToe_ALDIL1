@@ -12,26 +12,28 @@ namespace TicTacToe_ALDIL1.Model
     /// </summary>
     internal class Gamefield
     {
-        public Field[,] field { get; set; }
+        public Field[] field { get; set; }
 
         public Gamefield()
         {
             int number = 1;
-            field = new Field[3,3];
+            field = new Field[9];
             for (int i = 0; i < field.GetLength(0); i++)
             {
-                for (int j = 0; j < field.GetLength(1); j++)
-                {            
-                    field[i, j] = new Field(number);
-                    number ++;
-                }
+                field[i] = new Field(number);
+                number++;
             }
+        }
+
+        public void SetField(int fieldNumber, char symbol)
+        {
+            field[fieldNumber].symbol = symbol;
         }
     }
 
-    internal class Field
+    public class Field
     {
-        public int fieldNumber;
+        public int fieldNumber { get; set; }
         public char symbol;
         public bool isPushed;
         
@@ -41,5 +43,7 @@ namespace TicTacToe_ALDIL1.Model
             this.symbol = ' ';
             this.isPushed = false;
         }
+
+
     }
 }

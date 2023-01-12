@@ -11,6 +11,7 @@ namespace TicTacToe_ALDIL1.Controller
     internal class GameController
     {
         private readonly MainForm view;
+        Gamefield gamefield;
         private enum GameStates
         {
             NewGame,
@@ -26,11 +27,12 @@ namespace TicTacToe_ALDIL1.Controller
             this.view = _form;
 
             SetupMainEventConnection();
+
             InitializeGameField();
-
             Application.Run(view);
-
             
+
+
         }
 
         private void SetupMainEventConnection()
@@ -39,7 +41,7 @@ namespace TicTacToe_ALDIL1.Controller
             view.btnClicked += MainForm_btnClickedEvent;
         }
 
-        private void StartStateMachine()
+        private void StateMachine()
         {
             // Prüfe welcher Button gedrückt wurde
             // falls Button bereits gedrückt, mache nichts  bzw. (Meldung anzeigen)
@@ -49,20 +51,35 @@ namespace TicTacToe_ALDIL1.Controller
             // MiniMax
             // Computer Button setzen
             // Prüfen ob Spiel gewonnen
+
+
         }
 
         private void InitializeGameField()
         {
-            Gamefield gamefield = new Gamefield();
-            //foreach field in gamefield
-            //view.UpdatePlayground(field, '')
+            gamefield = new Gamefield();
+            UpdateGameField();           
+        }
+        private void UpdateGameField()
+        {
+            foreach (var f in this.gamefield.field)
+            {
+                view.UpdatePlayground(f.fieldNumber, f.symbol);
+            }
         }
 
         private void MainForm_btnClickedEvent(object? sender, int e)
         {
-            view.UpdatePlayground(e, 'O');
-            view.UpdateLabel("You got it!");
-            //throw new NotImplementedException();
+            // NUR ZUM TESTEN
+            //view.UpdatePlayground(e, 'O');
+            //view.UpdateLabel("You got it!");
+
+            // New Game - erstelle leeres Spielfeld
+            if (e == 0) InitializeGameField();
+            // Weiter im aktuellen Spielverlauf
+            else StateMachine();
+
+
         }
     }
 }

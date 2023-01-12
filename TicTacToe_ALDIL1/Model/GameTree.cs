@@ -18,7 +18,7 @@ namespace TicTacToe_ALDIL1.Model
             {
                 nr = rand.Next(9);
 
-            } while (gf.field[nr].symbol == ' ');
+            } while (gf.field[nr].symbol != ' ');
 
 
             return nr;

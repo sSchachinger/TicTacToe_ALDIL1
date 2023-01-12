@@ -41,7 +41,7 @@ namespace TicTacToe_ALDIL1.Controller
         {
             //Button Events
             view.btnClicked += MainForm_btnClickedEvent;
-            gamefield.ModelChangedEvent += Gamefield_ModelChangedEvent;
+            //gamefield.ModelChangedEvent += Gamefield_ModelChangedEvent;
         }
 
         private void Gamefield_ModelChangedEvent(object? sender, Field[] e)
@@ -62,6 +62,7 @@ namespace TicTacToe_ALDIL1.Controller
                         // falls Button noch nicht gedrückt, Button setzen
                         if (gamefield.field[buttonNumber].symbol == ' ')
                             gamefield.SetField(buttonNumber, 'X');
+                        UpdateGameField();
                         // Prüfen ob Spiel gewonnen
                         if (gamefield.CheckGameStatus() == GameResult.PlayerHasWon)
                             gameState = GameStates.GameOver;

@@ -16,11 +16,9 @@ namespace TicTacToe_ALDIL1.Model
             int nr = 0;
             do
             {
-                nr = rand.Next(9);
+                nr = rand.Next(1,9);
 
-            } while (gf.field[nr].symbol != ' ');
-
-
+            } while (gf.field[nr].isPushed == true);
             return nr;
         }
     }

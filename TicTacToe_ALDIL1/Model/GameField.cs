@@ -19,16 +19,15 @@ namespace TicTacToe_ALDIL1.Model
     /// </summary>
     public class Gamefield
     {
-        //public event EventHandler<Field[]> ModelChangedEvent;
         public Field[] field { get; set; }
-
-
+        public int EmptyFields;
 
         public Gamefield()
         {
             int number = 1;
             field = new Field[9];
-            for (int i = 0; i < field.GetLength(0); i++)
+            EmptyFields = 9;
+            for (int i = 0; i < field.Length; i++)
             {
                 field[i] = new Field(number);
                 number++;
@@ -38,8 +37,8 @@ namespace TicTacToe_ALDIL1.Model
         public void SetField(int fieldNumber, char symbol)
         {
             field[fieldNumber].symbol = symbol;
-            //ModelChangedEvent?.Invoke(this, this.field);
-
+            field[fieldNumber].isPushed = true;
+            EmptyFields--;
         }
 
         public GameResult CheckGameStatus()
@@ -53,8 +52,8 @@ namespace TicTacToe_ALDIL1.Model
     {
         public int fieldNumber { get; set; }
         public char symbol { get; set; }
-        public bool isPushed;
-        
+        public bool isPushed { get; set; }
+
         public Field(int number)
         {
             this.fieldNumber = number;

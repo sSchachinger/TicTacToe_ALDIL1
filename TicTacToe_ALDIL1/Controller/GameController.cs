@@ -12,19 +12,21 @@ namespace TicTacToe_ALDIL1.Controller
     {
         private readonly MainForm view;
         Gamefield gamefield;
+        GameStates gameState;
+        
         private enum GameStates
         {
             NewGame,
             PlayerTurn,
             ComputerTurn,
-            CheckField,
-
+            GameOver
         }
 
 
         public GameController(MainForm _form)
         {
             this.view = _form;
+            gamefield = new Gamefield();
 
             SetupMainEventConnection();
 
@@ -39,26 +41,69 @@ namespace TicTacToe_ALDIL1.Controller
         {
             //Button Events
             view.btnClicked += MainForm_btnClickedEvent;
+            gamefield.ModelChangedEvent += Gamefield_ModelChangedEvent;
         }
 
-        private void StateMachine()
+        private void Gamefield_ModelChangedEvent(object? sender, Field[] e)
         {
-            // Prüfe welcher Button gedrückt wurde
-            // falls Button bereits gedrückt, mache nichts  bzw. (Meldung anzeigen)
-            // falls Button noch nicht gedrückt, Button setzen
-            // Prüfen ob Spiel gewonnen
-            // Computer an der Reihe
-            // MiniMax
-            // Computer Button setzen
-            // Prüfen ob Spiel gewonnen
+            UpdateGameField();
+        }
 
+        private void StateMachine(int buttonNumber)
+        {
+            while (gamefield.CheckGameStatus() == GameResult.NoResult)
+            {
+                switch (gameState)
+                {
+                    case GameStates.PlayerTurn:
+
+                        // Prüfe welcher Button gedrückt wurde
+                        // falls Button bereits gedrückt, mache nichts  bzw. (Meldung anzeigen)
+                        // falls Button noch nicht gedrückt, Button setzen
+                        if (gamefield.field[buttonNumber].symbol == ' ')
+                            gamefield.SetField(buttonNumber, 'X');
+                        // Prüfen ob Spiel gewonnen
+                        if (gamefield.CheckGameStatus() == GameResult.PlayerHasWon)
+                            gameState = GameStates.GameOver;
+                        else
+                            gameState = GameStates.ComputerTurn;
+                        break;
+
+
+                    case GameStates.ComputerTurn:
+                        // Computer an der Reihe
+                        // MiniMax
+                        int nr = GameTree.ComputersTurn(gamefield);
+                        // Computer Button setzen
+                        gamefield.SetField(nr, 'O');
+
+                        // Prüfen ob Spiel gewonnen
+                        if (gamefield.CheckGameStatus() == GameResult.ComputerHasWon)
+                            gameState = GameStates.GameOver;
+                        else
+                            gameState = GameStates.PlayerTurn;
+                        break;
+
+                    case GameStates.GameOver:
+
+
+                    default:
+                        break;
+                }
+            }
+
+           
 
         }
+
+        
 
         private void InitializeGameField()
         {
             gamefield = new Gamefield();
-            UpdateGameField();           
+         
+            UpdateGameField();
+            gameState = GameStates.PlayerTurn;
         }
         private void UpdateGameField()
         {
@@ -77,7 +122,7 @@ namespace TicTacToe_ALDIL1.Controller
             // New Game - erstelle leeres Spielfeld
             if (e == 0) InitializeGameField();
             // Weiter im aktuellen Spielverlauf
-            else StateMachine();
+            else StateMachine(e);
 
 
         }

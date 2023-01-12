@@ -1,13 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace TicTacToe_ALDIL1.Model
 {
-    internal class GameTree
+    public static class GameTree
     {
+        public static int ComputersTurn(Gamefield gf)
+        {
+            // Computer ruft Minimax auf und setzt seinen Zug
+            var rand = new Random();
+            int nr = 0;
+            do
+            {
+                nr = rand.Next(9);
+
+            } while (gf.field[nr].symbol == ' ');
+
+
+            return nr;
+        }
     }
 
     internal class Node<T>

@@ -7,12 +7,22 @@ using System.Threading.Tasks;
 
 namespace TicTacToe_ALDIL1.Model
 {
+    public enum GameResult
+    {
+        ComputerHasWon,
+        PlayerHasWon,
+        Tie,
+        NoResult
+    }
     /// <summary>
     /// 3x3 Gamefield with char-Array 
     /// </summary>
-    internal class Gamefield
+    public class Gamefield
     {
+        public event EventHandler<Field[]> ModelChangedEvent;
         public Field[] field { get; set; }
+
+
 
         public Gamefield()
         {
@@ -28,13 +38,20 @@ namespace TicTacToe_ALDIL1.Model
         public void SetField(int fieldNumber, char symbol)
         {
             field[fieldNumber].symbol = symbol;
+            ModelChangedEvent(this, field);
+        }
+
+        public GameResult CheckGameStatus()
+        {
+            // Prüfe ob 3 in einer Reihe sind
+            return GameResult.NoResult;
         }
     }
 
     public class Field
     {
         public int fieldNumber { get; set; }
-        public char symbol;
+        public char symbol { get; set; }
         public bool isPushed;
         
         public Field(int number)

@@ -54,6 +54,7 @@
             // 
             // btnField1
             // 
+            this.btnField1.Font = new System.Drawing.Font("Segoe UI", 70F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnField1.Location = new System.Drawing.Point(105, 138);
             this.btnField1.Name = "btnField1";
             this.btnField1.Size = new System.Drawing.Size(250, 250);
@@ -64,6 +65,7 @@
             // 
             // btnField2
             // 
+            this.btnField2.Font = new System.Drawing.Font("Segoe UI", 70F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnField2.Location = new System.Drawing.Point(361, 138);
             this.btnField2.Name = "btnField2";
             this.btnField2.Size = new System.Drawing.Size(250, 250);
@@ -74,6 +76,7 @@
             // 
             // btnField3
             // 
+            this.btnField3.Font = new System.Drawing.Font("Segoe UI", 70F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnField3.Location = new System.Drawing.Point(617, 138);
             this.btnField3.Name = "btnField3";
             this.btnField3.Size = new System.Drawing.Size(250, 250);
@@ -84,6 +87,7 @@
             // 
             // btnField4
             // 
+            this.btnField4.Font = new System.Drawing.Font("Segoe UI", 70F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnField4.Location = new System.Drawing.Point(105, 394);
             this.btnField4.Name = "btnField4";
             this.btnField4.Size = new System.Drawing.Size(250, 250);
@@ -94,6 +98,7 @@
             // 
             // btnField5
             // 
+            this.btnField5.Font = new System.Drawing.Font("Segoe UI", 70F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnField5.Location = new System.Drawing.Point(361, 394);
             this.btnField5.Name = "btnField5";
             this.btnField5.Size = new System.Drawing.Size(250, 250);
@@ -104,6 +109,7 @@
             // 
             // btnField6
             // 
+            this.btnField6.Font = new System.Drawing.Font("Segoe UI", 70F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnField6.Location = new System.Drawing.Point(617, 394);
             this.btnField6.Name = "btnField6";
             this.btnField6.Size = new System.Drawing.Size(250, 250);
@@ -114,6 +120,7 @@
             // 
             // btnField7
             // 
+            this.btnField7.Font = new System.Drawing.Font("Segoe UI", 70F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnField7.Location = new System.Drawing.Point(105, 650);
             this.btnField7.Name = "btnField7";
             this.btnField7.Size = new System.Drawing.Size(250, 250);
@@ -124,6 +131,7 @@
             // 
             // btnField8
             // 
+            this.btnField8.Font = new System.Drawing.Font("Segoe UI", 70F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnField8.Location = new System.Drawing.Point(361, 650);
             this.btnField8.Name = "btnField8";
             this.btnField8.Size = new System.Drawing.Size(250, 250);
@@ -134,6 +142,7 @@
             // 
             // btnField9
             // 
+            this.btnField9.Font = new System.Drawing.Font("Segoe UI", 70F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnField9.Location = new System.Drawing.Point(617, 650);
             this.btnField9.Name = "btnField9";
             this.btnField9.Size = new System.Drawing.Size(250, 250);

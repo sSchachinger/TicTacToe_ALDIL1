@@ -70,6 +70,45 @@ namespace TicTacToe_ALDIL1
 
         }
 
+        public void UpdatePlayground(int field, char symbol)
+        {
+            switch (field)
+            {
+                case 0:
+                    break;
+                case 1:
+                    btnField1.Text = symbol.ToString();
+                    break;
+                case 2:
+                    btnField2.Text = symbol.ToString();
+                    break;
+                case 3:
+                    btnField3.Text = symbol.ToString();
+                    break;
+                case 4:
+                    btnField4.Text = symbol.ToString();
+                    break;
+                case 5:
+                    btnField5.Text = symbol.ToString();
+                    break;
+                case 6:
+                    btnField6.Text = symbol.ToString();
+                    break;
+                case 7:
+                    btnField7.Text = symbol.ToString();
+                    break;
+                case 8:
+                    btnField8.Text = symbol.ToString();
+                    break;
+                case 9:
+                    btnField9.Text = symbol.ToString();
+                    break;
+                default:
+                    break;
+            }
+            
+        }
+
     }
 
     

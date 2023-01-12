@@ -24,16 +24,4 @@ namespace TicTacToe_ALDIL1.Model
             next = nxt;
         }
     }
-    /// <summary>
-    /// 3x3 Gamefield with char-Array 
-    /// </summary>
-    internal class Gamefield
-    {
-        public char[,] Field { get; set; }
-
-        public Gamefield()
-        {
-            Field = new char[3, 3];
-        }
-    }
 }

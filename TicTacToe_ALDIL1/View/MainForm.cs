@@ -109,6 +109,10 @@ namespace TicTacToe_ALDIL1
             
         }
 
+        public void UpdateLabel(string text)
+        {
+            lbOutput.Text = text;
+        }
     }
 
     

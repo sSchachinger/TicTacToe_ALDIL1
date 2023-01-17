@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace TicTacToe_ALDIL1.Model
 {
@@ -38,14 +39,53 @@ namespace TicTacToe_ALDIL1.Model
         {
             field[fieldNumber].symbol = symbol;
             field[fieldNumber].isPushed = true;
+            if (symbol == 'O') { field[fieldNumber].value = -1; }
+            else if (symbol == 'X') { field[fieldNumber].value = +1; }
+            else { field[fieldNumber].value = 0; }
+
             EmptyFields--;
         }
 
-        public GameResult CheckGameStatus()
+        public GameResult CheckGameStatus(Gamefield gf)
         {
+
             // Prüfe ob 3 in einer Reihe sind
-            return GameResult.NoResult;
+            GameResult res = new GameResult();
+            res = GameResult.NoResult;
+
+            List<int[]> testOrder = new List<int[]>
+            {
+                new int[]  { 0, 1, 2 },
+                new int[]  { 3, 4, 5 },
+                new int[]  { 6, 7, 8 },
+
+                new int[]  { 0, 3, 6 },
+                new int[]  { 1, 4, 7 },
+                new int[]  { 2, 5, 8 },
+
+                new int[]  { 0, 4, 8 },
+                new int[]  { 2, 4, 6 },
+            };
+
+
+            foreach (int[] ord in testOrder)
+            {
+                res = CalcResult(gf.field[ord[0]], gf.field[ord[1]], gf.field[ord[2]]);
+                if (res != GameResult.NoResult)
+                {
+                    return res;
+                }
+            }
+            return res;
         }
+
+        private GameResult CalcResult(Field field1, Field field2, Field field3)
+        {
+            if (field1.value + field2.value + field3.value == 3) { return GameResult.PlayerHasWon; }
+            else if (field1.value + field2.value + field3.value == -3) { return GameResult.ComputerHasWon; }
+            else { return GameResult.NoResult; }
+        }
+
     }
 
     public class Field
@@ -53,12 +93,14 @@ namespace TicTacToe_ALDIL1.Model
         public int fieldNumber { get; set; }
         public char symbol { get; set; }
         public bool isPushed { get; set; }
+        public int value { get; set; }
 
         public Field(int number)
         {
             this.fieldNumber = number;
             this.symbol = ' ';
             this.isPushed = false;
+            this.value = 0;
         }
 
 

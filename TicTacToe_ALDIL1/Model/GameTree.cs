@@ -93,12 +93,14 @@ namespace TicTacToe_ALDIL1.Model
                 // Für jedes leere Feld, erstelle ein Child und setze im jeweiligen Feld ein Kreuz
                 foreach (int emptyField in emptyFields)
                 {
-                    Gamefield newChild = new Gamefield();
-                    newChild = (Gamefield)topNode.gamefield.Clone();
+                    Gamefield newChild = (Gamefield)topNode.gamefield.Clone();
                     newChild.SetField(emptyField, 'O');
-                    
+
+                    Node node = new Node(newChild);
+                    topNode.children.Add(node);
+
                     // Erstelle aus dem veränderten Child einen Node und pushe auf den Stack
-                    stack.Push(new Node(newChild));
+                    stack.Push(node);
                 }
                 break;
 

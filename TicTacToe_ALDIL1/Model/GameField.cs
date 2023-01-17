@@ -102,7 +102,7 @@ namespace TicTacToe_ALDIL1.Model
 
         public object Clone()
         {
-            return MemberwiseClone();
+            return this; //MemberwiseClone();
         }
     }
 

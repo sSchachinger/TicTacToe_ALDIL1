@@ -35,17 +35,13 @@ namespace TicTacToe_ALDIL1.Model
             }
         }
 
-
         public List<int> ReturnEmptyFields()
         {
             List<int> emptyFieldList = new List<int>();
-
-
             for (int i = 0; i < field.Length; i++)
             {
                 if (!field[i].isPushed) emptyFieldList.Add(i);
             }
-
             return emptyFieldList;
         }
 
@@ -58,6 +54,18 @@ namespace TicTacToe_ALDIL1.Model
             else { field[fieldNumber].value = 0; }
 
             EmptyFields--;
+        }
+
+        public Gamefield SetField(int fieldNumber, char symbol, Gamefield gf)
+        {
+            gf.field[fieldNumber].symbol = symbol;
+            gf.field[fieldNumber].isPushed = true;
+            if (symbol == 'O') { gf.field[fieldNumber].value = -1; }
+            else if (symbol == 'X') { gf.field[fieldNumber].value = +1; }
+            else { gf.field[fieldNumber].value = 0; }
+
+            gf.EmptyFields--;
+            return gf;
         }
 
         public GameResult CheckGameStatus(Gamefield gf)
@@ -102,11 +110,18 @@ namespace TicTacToe_ALDIL1.Model
 
         public object Clone()
         {
-            return this; //MemberwiseClone();
+            var obj = new Gamefield();
+            for (int i = 0; i < 9; i++)
+            {
+                obj.field[i] = (Field)field[i].Clone();
+            }
+            obj.field = (Field[])field.Clone();
+            obj.EmptyFields = EmptyFields;
+            return obj;
         }
     }
 
-    public class Field
+    public class Field : ICloneable
     {
         public int fieldNumber { get; set; }
         public char symbol { get; set; }
@@ -121,6 +136,14 @@ namespace TicTacToe_ALDIL1.Model
             this.value = 0;
         }
 
-
+        public object Clone()
+        {
+            var obj = new Field(9);
+            obj.value = value;
+            obj.isPushed = isPushed;
+            obj.symbol = symbol;
+            obj.fieldNumber = fieldNumber;
+            return obj;
+        }
     }
 }

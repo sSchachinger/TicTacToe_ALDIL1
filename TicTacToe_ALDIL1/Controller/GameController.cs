@@ -22,19 +22,15 @@ namespace TicTacToe_ALDIL1.Controller
             GameOver
         }
 
-
         public GameController(MainForm _form)
         {
             this.view = _form;
-            gamefield = new Gamefield();
+            //gamefield = new Gamefield();
 
             SetupMainEventConnection();
 
             InitializeGameField();
             Application.Run(view);
-            
-
-
         }
 
         private void SetupMainEventConnection()
@@ -70,7 +66,7 @@ namespace TicTacToe_ALDIL1.Controller
                 // MiniMax
                 int nr = GameTree.ComputersTurn(gamefield);
                 // Computer Button setzen
-                gamefield.SetField(nr, 'O');
+                //gamefield.SetField(nr, 'O');
                 UpdateGameField();
                 // Prüfen ob Spiel gewonnen
                 if (gamefield.CheckGameStatus(this.gamefield) == GameResult.ComputerHasWon)
@@ -97,8 +93,6 @@ namespace TicTacToe_ALDIL1.Controller
 
         }
 
-        
-
         private void InitializeGameField()
         {
             gamefield = new Gamefield();
@@ -117,13 +111,10 @@ namespace TicTacToe_ALDIL1.Controller
 
         private void MainForm_btnClickedEvent(object? sender, int e)
         {
-
             // New Game - erstelle leeres Spielfeld
             if (e == 0) InitializeGameField();
             // Weiter im aktuellen Spielverlauf
             else GameLogic(e-1);
-
-
         }
     }
 }

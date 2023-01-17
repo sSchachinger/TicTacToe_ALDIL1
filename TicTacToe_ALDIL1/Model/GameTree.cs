@@ -17,11 +17,6 @@ namespace TicTacToe_ALDIL1.Model
 
         public static int ComputersTurn(Gamefield gf)
         {
-            // Computer setzt seinen Zug zufällig
-            //return GenerateRandom(gf);
-
-
-
             // Aktuelles Spielfeld --> [0,1,2,3,4,5,6,7]
             // int[] rootTree = int[9] {-1, 0 , +1, 0, 0 -1} ---> Node
 
@@ -30,13 +25,10 @@ namespace TicTacToe_ALDIL1.Model
             // --> Stack
             CreateTree(gf);
 
+
+            // Computer setzt seinen Zug zufällig
+            //return GenerateRandom(gf);
             return 0;
-
-
-
-
-
-
         }
 
         private static int GenerateRandom(Gamefield gf)
@@ -79,12 +71,11 @@ namespace TicTacToe_ALDIL1.Model
 
         public static int CreateTree(Gamefield gf)
         {
-
             Stack<Node> stack = new Stack<Node>();
-            Node root = new Node(gf);         
+            Node root = new Node(gf);//aktuelles Gamefield wird als Rootknoten definiert
             stack.Push(root);
 
-            while(stack.Count > 0)
+            while (stack.Count > 0)
             {
                 Node topNode = stack.Pop();
                 // Generiere eine Liste mit den leeren Feldern des Spielfeldes
@@ -93,24 +84,25 @@ namespace TicTacToe_ALDIL1.Model
                 // Für jedes leere Feld, erstelle ein Child und setze im jeweiligen Feld ein Kreuz
                 foreach (int emptyField in emptyFields)
                 {
-                    Gamefield newChild = (Gamefield)topNode.gamefield.Clone();
-                    newChild.SetField(emptyField, 'O');
-
+                    Gamefield newChild = new Gamefield();
+                    newChild = (Gamefield)gf.Clone();
+                    newChild = newChild.SetField(emptyField, 'O', newChild);
                     Node node = new Node(newChild);
                     topNode.children.Add(node);
 
+
                     // Erstelle aus dem veränderten Child einen Node und pushe auf den Stack
-                    stack.Push(node);
+                    //stack.Push(node);
                 }
                 break;
 
             }
-            
 
 
 
 
-           
+
+
 
             //FieldState state = FieldState.Player;
             //while (stack.Count > 0)

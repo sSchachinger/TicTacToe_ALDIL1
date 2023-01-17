@@ -1,6 +1,8 @@
 ﻿using System;
+using System.CodeDom.Compiler;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing.Text;
 
 namespace TicTacToe_ALDIL1.Model
 {
@@ -15,7 +17,30 @@ namespace TicTacToe_ALDIL1.Model
 
         public static int ComputersTurn(Gamefield gf)
         {
-            // Computer ruft Minimax auf und setzt seinen Zug
+            // Computer setzt seinen Zug zufällig
+            //return GenerateRandom(gf);
+
+
+
+            // Aktuelles Spielfeld --> [0,1,2,3,4,5,6,7]
+            // int[] rootTree = int[9] {-1, 0 , +1, 0, 0 -1} ---> Node
+
+            // Node bekommt Kinder für mögliche Spielzüge
+            // Jeder der Kinder bekommt wieder Kinder für mögliche Spielzüge
+            // --> Stack
+            CreateTree(gf);
+
+            return 0;
+
+
+
+
+
+
+        }
+
+        private static int GenerateRandom(Gamefield gf)
+        {
             var rand = new Random();
             int nr = 0;
             do
@@ -26,37 +51,64 @@ namespace TicTacToe_ALDIL1.Model
             return nr;
         }
 
-        public static int? Minimax(Node<int> node, bool max)
-        {
-            int? value;
-            if (max == true)
-            {
-                value = int.MinValue; // Number that's smaller than what the evaluation algorithm can return
+        //public static int Minimax(Node node, bool max)
+        //{
+        //    int value;
+        //    if (max == true)
+        //    {
+        //        value = int.MinValue; // Number that's smaller than what the evaluation algorithm can return
 
-                foreach (Node<int> child in node)
-                {
-                    int? m = Minimax(child, !max);  //ignore the move part
-                    value = Math.Max((byte)value, (byte)m);
-                }
-                return value;
-            }
-            else
-            {
-                value = int.MaxValue;
-                foreach (Node<int> child in node)
-                {
-                    int? m = Minimax(child, !max); //ignore the move part
-                    value = Math.Min((byte)value, (byte)m);
-                }
-                return value;
-            }
-        }
+        //        foreach (Node child in node)
+        //        {
+        //            int m = Minimax(child, !max);  //ignore the move part
+        //            value = Math.Max((byte)value, (byte)m);
+        //        }
+        //        return value;
+        //    }
+        //    else
+        //    {
+        //        value = int.MaxValue;
+        //        foreach (Node child in node)
+        //        {
+        //            int?m = Minimax(child, !max); //ignore the move part
+        //            value = Math.Min((byte)value, (byte)m);
+        //        }
+        //        return value;
+        //    }
+        //}
 
         public static int CreateTree(Gamefield gf)
         {
-            Stack<Node<Gamefield>> stack = new Stack<Node<Gamefield>>();
-            Node<Gamefield> root = new Node<Gamefield>(gf);
+
+            Stack<Node> stack = new Stack<Node>();
+            Node root = new Node(gf);         
             stack.Push(root);
+
+            while(stack.Count > 0)
+            {
+                Node topNode = stack.Pop();
+                // Generiere eine Liste mit den leeren Feldern des Spielfeldes
+                List<int> emptyFields = topNode.gamefield.ReturnEmptyFields();
+
+                // Für jedes leere Feld, erstelle ein Child und setze im jeweiligen Feld ein Kreuz
+                foreach (int emptyField in emptyFields)
+                {
+                    Gamefield newChild = new Gamefield();
+                    newChild = (Gamefield)topNode.gamefield.Clone();
+                    newChild.SetField(emptyField, 'O');
+                    
+                    // Erstelle aus dem veränderten Child einen Node und pushe auf den Stack
+                    stack.Push(new Node(newChild));
+                }
+                break;
+
+            }
+            
+
+
+
+
+           
 
             //FieldState state = FieldState.Player;
             //while (stack.Count > 0)
@@ -82,55 +134,18 @@ namespace TicTacToe_ALDIL1.Model
         }
     }
 
-    public class Node<T> : IEnumerable, IEnumerator<T>
+    public class Node
     {
-        public T value { get; set; }
+        public Gamefield gamefield;
+        public List<Node> children;
 
-        public Node<T> next { get; set; }
-
-        public T _previous { get; set; }
-
-        public Node(T val, Node<T> nxt)
+        public Node(Gamefield gf)
         {
-            value = val;
-            next = nxt;
-        }
-        public Node(T val)
-        {
-            value = val;
-        }
-        public void getEmptyChilds()
-        {
-
-        }
-
-        private int index = 0;
-
-        public int length { get; set; }
-
-        public T Current => throw new NotImplementedException();
-
-        object IEnumerator.Current => throw new NotImplementedException();
-
-        public IEnumerator GetEnumerator()
-        {
-            return this;
-        }
-
-        public bool MoveNext()
-        {
-            index++;
-            return index <= length;
-        }
-
-        public void Reset()
-        {
-            index = -1;
-        }
-
-        public void Dispose()
-        {
-            index = 0;
+            this.gamefield = gf;
+            this.children = new List<Node>();
         }
     }
+
+
+
 }

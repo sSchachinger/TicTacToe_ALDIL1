@@ -18,7 +18,7 @@ namespace TicTacToe_ALDIL1.Model
     /// <summary>
     /// 3x3 Gamefield with char-Array 
     /// </summary>
-    public class Gamefield
+    public class Gamefield : ICloneable
     {
         public Field[] field { get; set; }
         public int EmptyFields;
@@ -33,6 +33,20 @@ namespace TicTacToe_ALDIL1.Model
                 field[i] = new Field(number);
                 number++;
             }
+        }
+
+
+        public List<int> ReturnEmptyFields()
+        {
+            List<int> emptyFieldList = new List<int>();
+
+
+            for (int i = 0; i < field.Length; i++)
+            {
+                if (!field[i].isPushed) emptyFieldList.Add(i);
+            }
+
+            return emptyFieldList;
         }
 
         public void SetField(int fieldNumber, char symbol)
@@ -86,6 +100,10 @@ namespace TicTacToe_ALDIL1.Model
             else { return GameResult.NoResult; }
         }
 
+        public object Clone()
+        {
+            return MemberwiseClone();
+        }
     }
 
     public class Field

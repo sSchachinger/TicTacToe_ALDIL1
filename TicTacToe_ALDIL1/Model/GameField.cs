@@ -23,6 +23,7 @@ namespace TicTacToe_ALDIL1.Model
     {
         public Field[] field { get; set; }
         public int EmptyFields;
+        public int lastSetted { get; set; }
 
         public Gamefield()
         {
@@ -46,24 +47,30 @@ namespace TicTacToe_ALDIL1.Model
             return emptyFieldList;
         }
 
-        public void SetField(int fieldNumber, char symbol)
+        public void SetField(int fieldNumber)
         {
-            field[fieldNumber].symbol = symbol;
-            field[fieldNumber].isPushed = true;
-            if (symbol == 'O') { field[fieldNumber].value = -1; }
-            else if (symbol == 'X') { field[fieldNumber].value = +1; }
-            else { field[fieldNumber].value = 0; }
+            if (EmptyFields % 2 == 1)
+            {
+                field[fieldNumber].symbol = 'X';
+                field[fieldNumber].value = -1;
+            }
 
+            else 
+            {
+                field[fieldNumber].symbol = 'O';
+                field[fieldNumber].value = +1;
+
+            }
+            field[fieldNumber].isPushed = true;
             EmptyFields--;
+            lastSetted = fieldNumber;
         }
 
 
         public GameResult CheckGameStatus()
         {
-
             // Prüfe ob 3 in einer Reihe sind
-            GameResult res = new GameResult();
-            res = GameResult.NoResult;
+            GameResult res = GameResult.NoResult;
 
             List<int[]> testOrder = new List<int[]>
             {
@@ -93,8 +100,8 @@ namespace TicTacToe_ALDIL1.Model
 
         private GameResult CalcResult(Field field1, Field field2, Field field3)
         {
-            if (field1.value + field2.value + field3.value == 3) { return GameResult.PlayerHasWon; }
-            else if (field1.value + field2.value + field3.value == -3) { return GameResult.ComputerHasWon; }
+            if (field1.value + field2.value + field3.value == 3) { return GameResult.ComputerHasWon; }
+            else if (field1.value + field2.value + field3.value == -3) { return GameResult.PlayerHasWon; }
             else { return GameResult.NoResult; }
         }
 

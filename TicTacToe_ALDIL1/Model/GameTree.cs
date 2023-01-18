@@ -3,6 +3,9 @@ using System.CodeDom.Compiler;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing.Text;
+using System.Linq;
+using System.Runtime.InteropServices;
+using System.Windows.Forms;
 
 namespace TicTacToe_ALDIL1.Model
 {
@@ -24,12 +27,32 @@ namespace TicTacToe_ALDIL1.Model
             // Jeder der Kinder bekommt wieder Kinder für mögliche Spielzüge
             // --> Stack
             Node root = CreateTree(gf);
-            int nr = Minimax(root, true);
 
+            // Minimax für jedes Kinder der folgenden Ebene durchführen und Utilitywert in Liste speichern
+            List<Tuple<int,int>> bestTurns = new List<Tuple<int, int>>();
+            
+
+            for (int i = 0; i < root.children.Count; i++)
+            {
+                int ut = Minimax(root.children[i], true);
+                bestTurns.Add(Tuple.Create(root.children[i].gamefield.lastSetted, ut));
+            }
+
+            int bestValue = int.MinValue;
+            int fieldNr = -1;
+
+            foreach (Tuple<int, int> turn in bestTurns)
+            {
+                if (turn.Item2 > bestValue)
+                {
+                    bestValue = turn.Item2;
+                    fieldNr = turn.Item1;
+                }
+            }
 
             // Computer setzt seinen Zug zufällig
             //return GenerateRandom(gf);
-            return nr;
+            return fieldNr;
         }
 
         private static int GenerateRandom(Gamefield gf)
@@ -52,7 +75,7 @@ namespace TicTacToe_ALDIL1.Model
 
             if (node.children.Count == 0)
             {
-                int ut =  node.gamefield.Utility();        
+                int ut =  node.gamefield.Utility() * (node.gamefield.EmptyFields + 1);        
                 return ut;
             }
 
@@ -81,7 +104,6 @@ namespace TicTacToe_ALDIL1.Model
 
         public static Node CreateTree(Gamefield gf)
         {
-            char symbol = 'O';
             Stack<Node> stack = new Stack<Node>();
             Node root = new Node(gf); //aktuelles Gamefield wird als Rootknoten definiert
             stack.Push(root);
@@ -89,31 +111,24 @@ namespace TicTacToe_ALDIL1.Model
             while (stack.Count > 0)
             {
                 Node topNode = stack.Pop();
-                // Generiere eine Liste mit den leeren Feldern des Spielfeldes
-                List<int> emptyFields = topNode.gamefield.ReturnEmptyFields();
-
-                // Für jedes leere Feld, erstelle ein Child und setze abwechseln jeweiligen Feld ein Kreuz
-                
-                
-                // Baum soll nicht weitergeführt werden, wenn bereits jemand gewonnen hat
-                foreach (int emptyField in emptyFields)
+                // Generiere eine Liste mit den leeren Feldern des Spielfeldes                        
+                foreach (int emptyField in topNode.gamefield.ReturnEmptyFields())
                 {             
                     Gamefield newChild = new Gamefield();
                     newChild = (Gamefield)topNode.gamefield.Clone();
-                    newChild.SetField(emptyField, symbol);
+                    newChild.SetField(emptyField);
 
                     Node node = new Node(newChild);
                     topNode.children.Add(node);
 
                     // Erstelle aus dem veränderten Child einen Node und pushe auf den Stack
+                    // Baum soll nicht weitergeführt werden, wenn bereits jemand gewonnen hat
                     if (GameResult.NoResult == node.gamefield.CheckGameStatus())
                     {
                         stack.Push(node);
                     }
                     
                 }
-                if (symbol == 'O') symbol = 'X';
-                else symbol = 'O';
                 //break;
             }
 

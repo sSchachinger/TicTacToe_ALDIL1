@@ -45,7 +45,7 @@ namespace TicTacToe_ALDIL1.Controller
                 // falls Button bereits gedrückt, mache nichts  bzw. (Meldung anzeigen)
                 // falls Button noch nicht gedrückt, Button setzen
                 if (gamefield.field[buttonNumber].isPushed == false)
-                    gamefield.SetField(buttonNumber, 'X');
+                    gamefield.SetField(buttonNumber);
                 UpdateGameField();
                 // Prüfen ob Spiel gewonnen
                 if (gamefield.CheckGameStatus() == GameResult.PlayerHasWon)
@@ -64,7 +64,7 @@ namespace TicTacToe_ALDIL1.Controller
                 // MiniMax
                 int nr = GameTree.ComputersTurn(gamefield);
                 // Computer Button setzen
-                gamefield.SetField(nr, 'O');
+                gamefield.SetField(nr);
                 UpdateGameField();
                 // Prüfen ob Spiel gewonnen
                 if (gamefield.CheckGameStatus() == GameResult.ComputerHasWon)

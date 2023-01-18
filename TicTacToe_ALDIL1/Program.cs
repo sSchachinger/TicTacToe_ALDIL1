@@ -22,8 +22,6 @@ namespace TicTacToe_ALDIL1
 
             // View
             MainForm myMainForm = new MainForm();
-            // Model
-
             // Controller
             GameController myController = new GameController(myMainForm);
 

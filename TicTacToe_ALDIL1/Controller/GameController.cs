@@ -63,7 +63,7 @@ namespace TicTacToe_ALDIL1.Controller
                         gameState = GameStates.GameOver;
                     }
                     else gameState = GameStates.ComputerTurn;
-                }               
+                }
             }
 
             // Computer turn
@@ -73,7 +73,6 @@ namespace TicTacToe_ALDIL1.Controller
                 int nr = GameTree.ComputersTurn(gamefield);
                 // Computer Button setzen
                 gamefield.SetField(nr);
-
                 view.UpdatePlayground(this.gamefield);
 
                 // Prüfen ob Spiel gewonnen
@@ -96,11 +95,7 @@ namespace TicTacToe_ALDIL1.Controller
             }
 
             if (gameState == GameStates.GameOver && gameResult != GameResult.Tie)
-            {
                 view.GameOver(gamefield.CheckWinningFields());
-            }
-
-
         }
 
         private void InitializeGameField()

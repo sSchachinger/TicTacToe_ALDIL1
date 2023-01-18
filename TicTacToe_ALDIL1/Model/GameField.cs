@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web;
-using System.Windows.Forms;
+﻿using System.Collections.Generic;
 
 namespace TicTacToe_ALDIL1.Model
 {
@@ -45,7 +38,6 @@ namespace TicTacToe_ALDIL1.Model
             field = new Field[9];
             emptyFields = 9;
 
-
             for (int i = 0; i < field.Length; i++)
             {
                 field[i] = new Field(number);
@@ -65,18 +57,8 @@ namespace TicTacToe_ALDIL1.Model
 
         public void SetField(int fieldNumber)
         {
-            if (emptyFields % 2 == 1)
-            {
-                field[fieldNumber].symbol = 'X';
-                field[fieldNumber].value = -1;
-            }
-
-            else 
-            {
-                field[fieldNumber].symbol = 'O';
-                field[fieldNumber].value = +1;
-
-            }
+            field[fieldNumber].symbol = emptyFields % 2 == 1 ? field[fieldNumber].symbol = 'X' : field[fieldNumber].symbol = 'O';
+            field[fieldNumber].value = emptyFields % 2 == 1 ? field[fieldNumber].value = -1 : field[fieldNumber].value = 1;
             field[fieldNumber].isPushed = true;
             emptyFields--;
             lastSetted = fieldNumber;
@@ -92,14 +74,12 @@ namespace TicTacToe_ALDIL1.Model
             {
                 res = CalcResult(this.field[ord[0]], this.field[ord[1]], this.field[ord[2]]);
                 if (res != GameResult.NoResult)
-                {
                     return res;
-                }
             }
             return GameResult.NoResult;
         }
 
-        public int[] CheckWinningFields()
+        public int[]? CheckWinningFields()
         {
             // Prüfe ob 3 in einer Reihe sind
             GameResult res = GameResult.NoResult;
@@ -108,9 +88,7 @@ namespace TicTacToe_ALDIL1.Model
             {
                 res = CalcResult(this.field[ord[0]], this.field[ord[1]], this.field[ord[2]]);
                 if (res != GameResult.NoResult)
-                {
                     return new int[3] { this.field[ord[0]].fieldNumber, this.field[ord[1]].fieldNumber, this.field[ord[2]].fieldNumber };
-                }
             }
             return default;
         }
@@ -120,12 +98,11 @@ namespace TicTacToe_ALDIL1.Model
             if (field1.value + field2.value + field3.value == 3) { return GameResult.ComputerHasWon; }
             else if (field1.value + field2.value + field3.value == -3) { return GameResult.PlayerHasWon; }
             else { return GameResult.NoResult; }
-            
+
         }
 
         public int Utility()
         {
-
             switch (CheckGameStatus())
             {
                 case (GameResult.PlayerHasWon):
@@ -134,7 +111,6 @@ namespace TicTacToe_ALDIL1.Model
                     return 1;
                 case (GameResult.Tie):
                     return 0;
-
                 default:
                     break;
             }
@@ -168,9 +144,6 @@ namespace TicTacToe_ALDIL1.Model
             this.value = 0;
         }
 
-        public object Clone()
-        {
-            return this.MemberwiseClone();
-        }
+        public object Clone() => MemberwiseClone();
     }
 }

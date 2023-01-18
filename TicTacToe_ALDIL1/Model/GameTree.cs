@@ -11,20 +11,10 @@ namespace TicTacToe_ALDIL1.Model
 {
     public static class GameTree
     {
-        public enum FieldState
-        {
-            Player,
-            Computer
-
-        }
-
         public static int ComputersTurn(Gamefield gf)
         {
             Node root = CreateTree(gf);
-
-            // Minimax für jedes Kinder der folgenden Ebene durchführen und Utilitywert in Liste speichern
-            List<Tuple<int,int>> bestTurns = new();
-            
+            List<Tuple<int,int>> bestTurns = new();// Minimax für jedes Kinder der folgenden Ebene durchführen und Utilitywert in Liste speichern
 
             for (int i = 0; i < root.children.Count; i++)
             {
@@ -43,23 +33,22 @@ namespace TicTacToe_ALDIL1.Model
                     fieldNr = turn.Item1;
                 }
             }
-
             // Computer setzt seinen Zug zufällig
             //return GenerateRandom(gf);
             return fieldNr;
         }
 
-        private static int GenerateRandom(Gamefield gf)
-        {
-            var rand = new Random();
-            int nr = 0;
-            do
-            {
-                nr = rand.Next(1, 9);
+        //private static int GenerateRandom(Gamefield gf)
+        //{
+        //    var rand = new Random();
+        //    int nr = 0;
+        //    do
+        //    {
+        //        nr = rand.Next(1, 9);
 
-            } while (gf.field[nr].isPushed == true);
-            return nr;
-        }
+        //    } while (gf.field[nr].isPushed == true);
+        //    return nr;
+        //}
 
         public static int Minimax(Node node, bool max)
         {
@@ -75,7 +64,6 @@ namespace TicTacToe_ALDIL1.Model
 
             if (max)
             {
-
                 for (int i = 0; i < node.children.Count; i++)
                 {
                     Node child = node.children[i];
@@ -118,14 +106,9 @@ namespace TicTacToe_ALDIL1.Model
                     // Erstelle aus dem veränderten Child einen Node und pushe auf den Stack
                     // Baum soll nicht weitergeführt werden, wenn bereits jemand gewonnen hat
                     if (GameResult.NoResult == node.gamefield.CheckGameStatus())
-                    {
                         stack.Push(node);
-                    }
-                    
                 }
-                //break;
             }
-
             return root;
         }
     }

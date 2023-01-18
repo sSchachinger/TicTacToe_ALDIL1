@@ -18,7 +18,7 @@ namespace TicTacToe_ALDIL1.Model
     /// <summary>
     /// 3x3 Gamefield with char-Array 
     /// </summary>
-    public class Gamefield : ICloneable
+    public class Gamefield
     {
         public Field[] field { get; set; }
         public int EmptyFields;
@@ -115,13 +115,12 @@ namespace TicTacToe_ALDIL1.Model
             {
                 obj.field[i] = (Field)field[i].Clone();
             }
-            obj.field = (Field[])field.Clone();
             obj.EmptyFields = EmptyFields;
             return obj;
         }
     }
 
-    public class Field : ICloneable
+    public class Field
     {
         public int fieldNumber { get; set; }
         public char symbol { get; set; }
@@ -138,12 +137,7 @@ namespace TicTacToe_ALDIL1.Model
 
         public object Clone()
         {
-            var obj = new Field(9);
-            obj.value = value;
-            obj.isPushed = isPushed;
-            obj.symbol = symbol;
-            obj.fieldNumber = fieldNumber;
-            return obj;
+            return this.MemberwiseClone();
         }
     }
 }

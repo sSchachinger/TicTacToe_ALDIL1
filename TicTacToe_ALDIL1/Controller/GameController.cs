@@ -13,7 +13,7 @@ namespace TicTacToe_ALDIL1.Controller
         private readonly MainForm view;
         Gamefield gamefield;
         GameStates gameState;
-        
+
         private enum GameStates
         {
             NewGame,
@@ -25,8 +25,6 @@ namespace TicTacToe_ALDIL1.Controller
         public GameController(MainForm _form)
         {
             this.view = _form;
-            //gamefield = new Gamefield();
-
             SetupMainEventConnection();
 
             InitializeGameField();
@@ -58,7 +56,7 @@ namespace TicTacToe_ALDIL1.Controller
                 else
                     gameState = GameStates.ComputerTurn;
             }
-            
+
 
             if (gamefield.EmptyFields > 0 && gameState == GameStates.ComputerTurn)
             {
@@ -74,7 +72,7 @@ namespace TicTacToe_ALDIL1.Controller
                     view.UpdateLabel("Computer won!");
                     gameState = GameStates.GameOver;
                 }
-                    
+
                 else
                     gameState = GameStates.PlayerTurn;
             }
@@ -96,7 +94,7 @@ namespace TicTacToe_ALDIL1.Controller
         private void InitializeGameField()
         {
             gamefield = new Gamefield();
-         
+
             UpdateGameField();
             gameState = GameStates.PlayerTurn;
             view.UpdateLabel("You can do it!");
@@ -114,7 +112,7 @@ namespace TicTacToe_ALDIL1.Controller
             // New Game - erstelle leeres Spielfeld
             if (e == 0) InitializeGameField();
             // Weiter im aktuellen Spielverlauf
-            else GameLogic(e-1);
+            else GameLogic(e - 1);
         }
     }
 }

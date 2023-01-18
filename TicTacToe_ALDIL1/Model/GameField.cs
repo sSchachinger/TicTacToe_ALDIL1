@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using System.Windows.Forms;
 
 namespace TicTacToe_ALDIL1.Model
@@ -56,19 +57,8 @@ namespace TicTacToe_ALDIL1.Model
             EmptyFields--;
         }
 
-        public Gamefield SetField(int fieldNumber, char symbol, Gamefield gf)
-        {
-            gf.field[fieldNumber].symbol = symbol;
-            gf.field[fieldNumber].isPushed = true;
-            if (symbol == 'O') { gf.field[fieldNumber].value = -1; }
-            else if (symbol == 'X') { gf.field[fieldNumber].value = +1; }
-            else { gf.field[fieldNumber].value = 0; }
 
-            gf.EmptyFields--;
-            return gf;
-        }
-
-        public GameResult CheckGameStatus(Gamefield gf)
+        public GameResult CheckGameStatus()
         {
 
             // Prüfe ob 3 in einer Reihe sind
@@ -92,7 +82,7 @@ namespace TicTacToe_ALDIL1.Model
 
             foreach (int[] ord in testOrder)
             {
-                res = CalcResult(gf.field[ord[0]], gf.field[ord[1]], gf.field[ord[2]]);
+                res = CalcResult(this.field[ord[0]], this.field[ord[1]], this.field[ord[2]]);
                 if (res != GameResult.NoResult)
                 {
                     return res;
@@ -106,6 +96,24 @@ namespace TicTacToe_ALDIL1.Model
             if (field1.value + field2.value + field3.value == 3) { return GameResult.PlayerHasWon; }
             else if (field1.value + field2.value + field3.value == -3) { return GameResult.ComputerHasWon; }
             else { return GameResult.NoResult; }
+        }
+
+        public int Utility()
+        {
+
+            switch (CheckGameStatus())
+            {
+                case (GameResult.PlayerHasWon):
+                    return -1;
+                case (GameResult.ComputerHasWon):
+                    return 1;
+                case (GameResult.Tie):
+                    return 0;
+
+                default:
+                    break;
+            }
+            return 0;
         }
 
         public object Clone()

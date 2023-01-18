@@ -23,12 +23,13 @@ namespace TicTacToe_ALDIL1.Model
             // Node bekommt Kinder für mögliche Spielzüge
             // Jeder der Kinder bekommt wieder Kinder für mögliche Spielzüge
             // --> Stack
-            CreateTree(gf);
+            Node root = CreateTree(gf);
+            int nr = Minimax(root, true);
 
 
             // Computer setzt seinen Zug zufällig
             //return GenerateRandom(gf);
-            return 0;
+            return nr;
         }
 
         private static int GenerateRandom(Gamefield gf)
@@ -43,36 +44,46 @@ namespace TicTacToe_ALDIL1.Model
             return nr;
         }
 
-        //public static int Minimax(Node node, bool max)
-        //{
-        //    int value;
-        //    if (max == true)
-        //    {
-        //        value = int.MinValue; // Number that's smaller than what the evaluation algorithm can return
-
-        //        foreach (Node child in node)
-        //        {
-        //            int m = Minimax(child, !max);  //ignore the move part
-        //            value = Math.Max((byte)value, (byte)m);
-        //        }
-        //        return value;
-        //    }
-        //    else
-        //    {
-        //        value = int.MaxValue;
-        //        foreach (Node child in node)
-        //        {
-        //            int?m = Minimax(child, !max); //ignore the move part
-        //            value = Math.Min((byte)value, (byte)m);
-        //        }
-        //        return value;
-        //    }
-        //}
-
-        public static int CreateTree(Gamefield gf)
+        public static int Minimax(Node node, bool max)
         {
+            int value;
+            int maxUtility = int.MinValue;
+            int minUtility = int.MaxValue;
+
+            if (node.children.Count == 0)
+            {
+                int ut =  node.gamefield.Utility();        
+                return ut;
+            }
+
+            if (max)
+            {
+
+                for (int i = 0; i < node.children.Count; i++)
+                {
+                    Node child = node.children[i];
+                    value = Minimax(child, !max);
+                    maxUtility = Math.Max(maxUtility, value);
+                }
+                return maxUtility;
+            }
+            else
+            {
+                for (int i = 0; i < node.children.Count; i++)
+                {
+                    Node child = node.children[i];
+                    value = Minimax(child, !max);
+                    minUtility = Math.Min(minUtility, value);
+                }
+                return minUtility;
+            }
+        }
+
+        public static Node CreateTree(Gamefield gf)
+        {
+            char symbol = 'O';
             Stack<Node> stack = new Stack<Node>();
-            Node root = new Node(gf);//aktuelles Gamefield wird als Rootknoten definiert
+            Node root = new Node(gf); //aktuelles Gamefield wird als Rootknoten definiert
             stack.Push(root);
 
             while (stack.Count > 0)
@@ -81,50 +92,32 @@ namespace TicTacToe_ALDIL1.Model
                 // Generiere eine Liste mit den leeren Feldern des Spielfeldes
                 List<int> emptyFields = topNode.gamefield.ReturnEmptyFields();
 
-                // Für jedes leere Feld, erstelle ein Child und setze im jeweiligen Feld ein Kreuz
+                // Für jedes leere Feld, erstelle ein Child und setze abwechseln jeweiligen Feld ein Kreuz
+                
+                
+                // Baum soll nicht weitergeführt werden, wenn bereits jemand gewonnen hat
                 foreach (int emptyField in emptyFields)
-                {
+                {             
                     Gamefield newChild = new Gamefield();
-                    newChild = (Gamefield)gf.Clone();
-                    newChild = newChild.SetField(emptyField, 'O', newChild);
+                    newChild = (Gamefield)topNode.gamefield.Clone();
+                    newChild.SetField(emptyField, symbol);
+
                     Node node = new Node(newChild);
                     topNode.children.Add(node);
 
-
                     // Erstelle aus dem veränderten Child einen Node und pushe auf den Stack
-                    //stack.Push(node);
+                    if (GameResult.NoResult == node.gamefield.CheckGameStatus())
+                    {
+                        stack.Push(node);
+                    }
+                    
                 }
-                break;
-
+                if (symbol == 'O') symbol = 'X';
+                else symbol = 'O';
+                //break;
             }
 
-
-
-
-
-
-
-            //FieldState state = FieldState.Player;
-            //while (stack.Count > 0)
-            //{
-            //    state = state.Equals(FieldState.Player) ? FieldState.Computer : FieldState.Player;
-            //    var topNode = stack.Pop();
-            //    var emptyFields = topNode.value.EmptyFields;
-
-            //    while(emptyFields>0)
-            //    {
-            //        Gamefield newfield = new Gamefield(topNode.value);
-            //        newfield.SetField(emptyFields, state);
-
-
-            //        //Node < Gamefield > = new Node<Gamefield>(newfield);
-            //        Node<Gamefield> node = new Node<Gamefield>(newfield);
-            //        topNode.next.Add(node);
-            //        emptyFields--;
-
-            //    }
-            //}
-            return 1;
+            return root;
         }
     }
 

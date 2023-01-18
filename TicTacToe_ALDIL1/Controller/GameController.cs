@@ -48,7 +48,7 @@ namespace TicTacToe_ALDIL1.Controller
                     gamefield.SetField(buttonNumber, 'X');
                 UpdateGameField();
                 // Prüfen ob Spiel gewonnen
-                if (gamefield.CheckGameStatus(this.gamefield) == GameResult.PlayerHasWon)
+                if (gamefield.CheckGameStatus() == GameResult.PlayerHasWon)
                 {
                     view.UpdateLabel("You won!");
                     gameState = GameStates.GameOver;
@@ -64,10 +64,10 @@ namespace TicTacToe_ALDIL1.Controller
                 // MiniMax
                 int nr = GameTree.ComputersTurn(gamefield);
                 // Computer Button setzen
-                //gamefield.SetField(nr, 'O');
+                gamefield.SetField(nr, 'O');
                 UpdateGameField();
                 // Prüfen ob Spiel gewonnen
-                if (gamefield.CheckGameStatus(this.gamefield) == GameResult.ComputerHasWon)
+                if (gamefield.CheckGameStatus() == GameResult.ComputerHasWon)
                 {
                     view.UpdateLabel("Computer won!");
                     gameState = GameStates.GameOver;

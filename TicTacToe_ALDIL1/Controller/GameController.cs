@@ -13,6 +13,7 @@ namespace TicTacToe_ALDIL1.Controller
         private readonly MainForm view;
         Gamefield gamefield;
         GameStates gameState;
+        GameResult gameResult;
 
         private enum GameStates
         {
@@ -25,6 +26,8 @@ namespace TicTacToe_ALDIL1.Controller
         public GameController(MainForm _form)
         {
             this.view = _form;
+            gamefield = new Gamefield();
+
             SetupMainEventConnection();
 
             InitializeGameField();
@@ -39,53 +42,62 @@ namespace TicTacToe_ALDIL1.Controller
 
         private void GameLogic(int buttonNumber)
         {
-            if (gamefield.EmptyFields > 0 && gameState == GameStates.PlayerTurn)
+            // Player turn
+            if (gamefield.emptyFields > 0 && gameState == GameStates.PlayerTurn)
             {
                 // Prüfe welcher Button gedrückt wurde
                 // falls Button bereits gedrückt, mache nichts  bzw. (Meldung anzeigen)
                 // falls Button noch nicht gedrückt, Button setzen
                 if (gamefield.field[buttonNumber].isPushed == false)
-                    gamefield.SetField(buttonNumber);
-                UpdateGameField();
-                // Prüfen ob Spiel gewonnen
-                if (gamefield.CheckGameStatus() == GameResult.PlayerHasWon)
                 {
-                    view.UpdateLabel("You won!");
-                    gameState = GameStates.GameOver;
-                }
-                else
-                    gameState = GameStates.ComputerTurn;
+                    gamefield.SetField(buttonNumber);
+
+                    view.UpdatePlayground(this.gamefield);
+
+                    // Prüfen ob Spiel gewonnen
+                    gameResult = gamefield.CheckGameStatus();
+
+                    if (gameResult == GameResult.PlayerHasWon)
+                    {
+                        view.UpdateLabel("You won!");
+                        gameState = GameStates.GameOver;
+                    }
+                    else gameState = GameStates.ComputerTurn;
+                }               
             }
 
-
-            if (gamefield.EmptyFields > 0 && gameState == GameStates.ComputerTurn)
+            // Computer turn
+            if (gamefield.emptyFields > 0 && gameState == GameStates.ComputerTurn)
             {
-                // Computer an der Reihe
                 // MiniMax
                 int nr = GameTree.ComputersTurn(gamefield);
                 // Computer Button setzen
                 gamefield.SetField(nr);
-                UpdateGameField();
+
+                view.UpdatePlayground(this.gamefield);
+
                 // Prüfen ob Spiel gewonnen
-                if (gamefield.CheckGameStatus() == GameResult.ComputerHasWon)
+                gameResult = gamefield.CheckGameStatus();
+
+                if (gameResult == GameResult.ComputerHasWon)
                 {
                     view.UpdateLabel("Computer won!");
                     gameState = GameStates.GameOver;
                 }
-
                 else
                     gameState = GameStates.PlayerTurn;
             }
 
-            if (gamefield.EmptyFields <= 0 && gameState != GameStates.GameOver)
+            if (gamefield.emptyFields <= 0 && gameState != GameStates.GameOver)
             {
                 view.UpdateLabel("Tie!");
                 gameState = GameStates.GameOver;
+                gameResult = GameResult.Tie;
             }
 
-            if (gameState == GameStates.GameOver)
+            if (gameState == GameStates.GameOver && gameResult != GameResult.Tie)
             {
-                // TODO
+                view.GameOver(gamefield.CheckWinningFields());
             }
 
 
@@ -93,26 +105,23 @@ namespace TicTacToe_ALDIL1.Controller
 
         private void InitializeGameField()
         {
-            gamefield = new Gamefield();
-
-            UpdateGameField();
+            view.InitializeGameField();
+            view.UpdatePlayground(this.gamefield);
             gameState = GameStates.PlayerTurn;
+            gameResult = GameResult.NoResult;
             view.UpdateLabel("You can do it!");
         }
-        private void UpdateGameField()
-        {
-            foreach (var f in this.gamefield.field)
-            {
-                view.UpdatePlayground(f.fieldNumber, f.symbol);
-            }
-        }
 
-        private void MainForm_btnClickedEvent(object? sender, int e)
+        private void MainForm_btnClickedEvent(object? sender, int buttonNr)
         {
             // New Game - erstelle leeres Spielfeld
-            if (e == 0) InitializeGameField();
+            if (buttonNr == 0)
+            {
+                gamefield = new Gamefield();
+                InitializeGameField();
+            }
             // Weiter im aktuellen Spielverlauf
-            else GameLogic(e - 1);
+            else GameLogic(buttonNr - 1);
         }
     }
 }

@@ -20,16 +20,10 @@ namespace TicTacToe_ALDIL1.Model
 
         public static int ComputersTurn(Gamefield gf)
         {
-            // Aktuelles Spielfeld --> [0,1,2,3,4,5,6,7]
-            // int[] rootTree = int[9] {-1, 0 , +1, 0, 0 -1} ---> Node
-
-            // Node bekommt Kinder für mögliche Spielzüge
-            // Jeder der Kinder bekommt wieder Kinder für mögliche Spielzüge
-            // --> Stack
             Node root = CreateTree(gf);
 
             // Minimax für jedes Kinder der folgenden Ebene durchführen und Utilitywert in Liste speichern
-            List<Tuple<int,int>> bestTurns = new List<Tuple<int, int>>();
+            List<Tuple<int,int>> bestTurns = new();
             
 
             for (int i = 0; i < root.children.Count; i++)
@@ -75,7 +69,7 @@ namespace TicTacToe_ALDIL1.Model
 
             if (node.children.Count == 0)
             {
-                int ut =  node.gamefield.Utility() * (node.gamefield.EmptyFields + 1);        
+                int ut =  node.gamefield.Utility() * (node.gamefield.emptyFields + 1);        
                 return ut;
             }
 
